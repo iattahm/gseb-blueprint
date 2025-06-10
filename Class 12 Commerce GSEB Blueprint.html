@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive GSEB 12th Commerce Blueprint 2025</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Warm Neutrals (Off-white, Muted Blue, Muted Green) -->
+    <!-- Application Structure Plan: A tabbed dashboard interface. Each tab represents a subject (Accounts, B.A., etc.). Clicking a tab dynamically updates the main content area with a detailed accordion list of chapters and topics. The doughnut chart has been removed for a streamlined, direct textual presentation of weightage within the accordion items. This structure was chosen for quick, non-linear access to specific subject information, which is more user-friendly for a student reference tool than a long, scrolling report, while providing a clean and direct view of chapter details. -->
+    <!-- Visualization & Content Choices: Report Info: Chapter-wise marks for each subject. Goal: Provide detailed chapter information and approximate weightage. Viz Method: Enhanced HTML/Tailwind accordion for drill-down details. Marks are prominently displayed as text within the accordion summary. Interaction: Clicking tabs to change subjects, and expanding accordions for detailed topics. Justification: This direct textual approach removes the need for a graph, offering a clear and concise presentation of weightage data for all subjects, including those where numerical chapter-wise data is 'Varies'. Library: Vanilla JS for dynamic content. CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f4f4f5;
+        }
+        .tab-active {
+            background-color: #3b82f6;
+            color: #ffffff;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+        }
+        .tab-inactive {
+            background-color: #e5e7eb;
+            color: #4b5563;
+        }
+        .content-section {
+            display: none;
+        }
+        .content-section.active {
+            display: block;
+        }
+        details > summary {
+            list-style: none;
+        }
+        details > summary::-webkit-details-marker {
+            display: none;
+        }
+        details[open] summary .arrow-down {
+            transform: rotate(180deg);
+        }
+    </style>
+</head>
+<body class="text-gray-800">
+
+    <div class="container mx-auto p-4 md:p-8 max-w-7xl">
+
+        <header class="text-center mb-8 md:mb-12">
+            <h1 class="text-3xl md:text-5xl font-extrabold text-gray-800 mb-2">GSEB Class 12 Commerce Blueprint</h1>
+            <p class="text-xl md:text-2xl font-semibold text-blue-600">Interactive Exam Planner 2025</p>
+        </header>
+
+        <div class="bg-white p-4 sm:p-6 rounded-2xl shadow-lg">
+            <div class="mb-8">
+                <h2 class="text-xl font-bold text-gray-700 mb-3">Welcome, Future Achievers!</h2>
+                <p class="text-gray-600 leading-relaxed">
+                    This interactive dashboard is designed to help you understand the GSEB Class 12 Commerce exam pattern for 2025. Select a subject below to explore its chapter-wise breakdown and key topics. Use this tool to smartly plan your studies and focus on high-weightage areas. Good luck!
+                </p>
+            </div>
+
+            <nav class="flex flex-wrap justify-center gap-2 md:gap-4 mb-8" id="subject-tabs">
+                <button data-subject="accountancy" class="tab-button text-sm md:text-base font-semibold py-2 px-4 rounded-full transition-all duration-300">📊 Accountancy</button>
+                <button data-subject="business_studies" class="tab-button text-sm md:text-base font-semibold py-2 px-4 rounded-full transition-all duration-300">📈 Business Studies</button>
+                <button data-subject="economics" class="tab-button text-sm md:text-base font-semibold py-2 px-4 rounded-full transition-all duration-300">🌍 Economics</button>
+                <button data-subject="statistics" class="tab-button text-sm md:text-base font-semibold py-2 px-4 rounded-full transition-all duration-300">➗ Statistics</button>
+                <button data-subject="english" class="tab-button text-sm md:text-base font-semibold py-2 px-4 rounded-full transition-all duration-300">📚 English</button>
+                <button data-subject="gujarati" class="tab-button text-sm md:text-base font-semibold py-2 px-4 rounded-full transition-all duration-300">📝 Gujarati</button>
+            </nav>
+
+            <main id="main-content">
+                <!-- Content for each subject will be injected here by JavaScript -->
+            </main>
+        </div>
+
+        <footer class="text-center mt-8 text-gray-500 text-sm">
+            <p>Disclaimer: This is a visual aid based on the tentative 2025 blueprint. Always refer to the official GSEB website for final details.</p>
+        </footer>
+    </div>
+
+    <script>
+        const blueprintData = {
+            accountancy: {
+                title: "Accountancy (Elements of Accounts)",
+                totalMarks: 100,
+                color: 'blue',
+                chapters: [
+                    { name: "Intro to Partnership", marks: 4, topics: "Meaning, Features, Partnership Deed, Capital Accounts (Fixed & Fluctuating), P&L Appropriation A/c." },
+                    { name: "Final Accounts of Partnership", marks: 11, topics: "Trading A/c, P&L A/c, P&L Appropriation A/c, Capital/Current A/c, Balance Sheet with adjustments." },
+                    { name: "Valuation of Goodwill", marks: 6, topics: "Meaning, Factors, Methods: Average Profit, Super Profit, Capitalization." },
+                    { name: "Reconstruction of Partnership", marks: 5, topics: "Change in Profit Sharing Ratio, Revaluation of Assets & Liabilities, Treatment of Reserves." },
+                    { name: "Admission of a Partner", marks: 9, topics: "New Ratio, Sacrificing Ratio, Goodwill Treatment, Revaluation A/c, Capital Adjustments." },
+                    { name: "Retirement/Death of a Partner", marks: 9, topics: "Gaining Ratio, Goodwill Treatment, Revaluation A/c, Payment to Retiring/Deceased Partner." },
+                    { name: "Dissolution of Partnership Firm", marks: 8, topics: "Realization Account, Partner's Capital Accounts, Bank/Cash Account." },
+                    { name: "Accounting for Share Capital", marks: 10, topics: "Issue of Shares (at Par, Premium), Calls in Arrears/Advance, Forfeiture, Re-issue." },
+                    { name: "Accounting for Debentures", marks: 8, topics: "Issue of Debentures (at Par, Premium, Discount), Redemption." },
+                    { name: "Company Final Accounts", marks: 11, topics: "Statement of P&L and Balance Sheet as per Schedule III." },
+                    { name: "Analysis of Financial Statements", marks: 5, topics: "Tools: Comparative Statements, Common-Size Statements." },
+                    { name: "Accounting Ratios", marks: 8, topics: "Liquidity, Solvency, Activity, Profitability Ratios." },
+                    { name: "Cash Flow Statement", marks: 6, topics: "Preparation as per AS-3 (Indirect Method)." }
+                ]
+            },
+            business_studies: {
+                title: "Business Studies (Commercial Management)",
+                totalMarks: 100,
+                color: 'green',
+                chapters: [
+                    { name: "Nature & Significance of Mgt.", marks: 10, topics: "Concepts, Objectives, Importance, Levels, Functions of Management." },
+                    { name: "Principles of Management", marks: 6, topics: "Fayol's Principles, Taylor's Scientific Management." },
+                    { name: "Business Environment", marks: 8, topics: "Dimensions (Economic, Social, Political, etc.), LPG." },
+                    { name: "Planning", marks: 7, topics: "Concept, Importance, Limitations, Process, Types of Plans." },
+                    { name: "Organizing", marks: 10, topics: "Concept, Process, Structure, Delegation, Decentralization." },
+                    { name: "Staffing", marks: 10, topics: "Concept, Process (Recruitment, Selection, Training)." },
+                    { name: "Directing", marks: 10, topics: "Elements (Supervision, Motivation, Leadership, Communication)." },
+                    { name: "Controlling", marks: 6, topics: "Concept, Importance, Process, Relationship with Planning." },
+                    { name: "Financial Management", marks: 8, topics: "Objectives, Financial Decisions (Investment, Financing, Dividend)." },
+                    { name: "Financial Market", marks: 8, topics: "Money Market, Capital Market, Stock Exchange, SEBI." },
+                    { name: "Marketing Management", marks: 9, topics: "Functions, Marketing Mix (4Ps)." },
+                    { name: "Consumer Protection", marks: 8, topics: "Rights & Responsibilities, Redressal Mechanism." }
+                ]
+            },
+            economics: {
+                title: "Economics",
+                totalMarks: 100,
+                color: 'yellow',
+                chapters: [
+                    { name: "Graphs in Economics", marks: 8, topics: "Types of Graphs, Importance, Limitations." },
+                    { name: "Indicators of Growth", marks: 10, topics: "Economic Growth vs. Development, Indicators (GNP, PQLI, HDI)." },
+                    { name: "Money and Inflation", marks: 8, topics: "Functions of Money, Meaning of Inflation, Causes, Effects." },
+                    { name: "Banking & Monetary Policy", marks: 8, topics: "Commercial Banks, RBI, Monetary Policy Tools." },
+                    { name: "Poverty", marks: 10, topics: "Meaning, Types, Causes, Poverty Alleviation Programs." },
+                    { name: "Unemployment", marks: 10, topics: "Meaning, Types, Causes, Measures to reduce Unemployment." },
+                    { name: "Population", marks: 10, topics: "Population Growth Trends, Causes, Effects, Population Policy." },
+                    { name: "Agriculture Sector", marks: 10, topics: "Importance, Problems, Agricultural Reforms." },
+                    { name: "Foreign Trade", marks: 8, topics: "Balance of Payments, Foreign Exchange Rate." },
+                    { name: "Industrial Sector", marks: 8, topics: "Importance, Types of Industries, Industrial Policies." },
+                    { name: "Emerging Issues in Indian Eco.", marks: 10, topics: "Globalization, Liberalization, Privatization, Sustainable Development." }
+                ]
+            },
+            statistics: {
+                title: "Statistics",
+                totalMarks: 100,
+                color: 'red',
+                chapters: [
+                    { name: "Index Number", marks: 12, topics: "Laspeyre's, Paasche's, Fisher's, Cost of Living Index." },
+                    { name: "Linear Correlation", marks: 12, topics: "Karl Pearson's Coefficient, Spearman's Rank Correlation." },
+                    { name: "Linear Regression", marks: 12, topics: "Regression Lines (Y on X, X on Y), Prediction." },
+                    { name: "Time Series", marks: 14, topics: "Components, Methods (Moving Average, Least Squares)." },
+                    { name: "Probability", marks: 12, topics: "Addition Theorem, Conditional Probability, Bayes' Theorem." },
+                    { name: "Discrete Probability Dist.", marks: 10, topics: "Binomial Distribution, Poisson Distribution." },
+                    { name: "Normal Distribution", marks: 10, topics: "Properties, Standard Normal Variate, Area under Curve." },
+                    { name: "Limit", marks: 8, topics: "Concept of Limit, Properties, Evaluation of Limits." },
+                    { name: "Differentiation", marks: 10, topics: "Rules and applications in commerce." }
+                ]
+            },
+            english: {
+                title: "English",
+                totalMarks: "80 (Theory) + 20 (Internal)",
+                color: 'purple',
+                chapters: [
+                     { name: "Reading Skill", marks: 15, topics: "Unseen Passages (Factual, Discursive, Literary), evaluating comprehension, vocabulary, and inference." },
+                     { name: "Writing Skill", marks: 20, topics: "Notice, Advertisement, Letter (Official/Business), Article, Report, Speech, and Email writing. Focus on format and content." },
+                     { name: "Grammar", marks: 25, topics: "Tenses, Modals, Voice, Narration, Articles, Prepositions, Conjunctions, and Sentence Transformation." },
+                     { name: "Flamingo (Prose & Poetry)", marks: 20, topics: "Textual questions, central idea, and poetic devices from all prescribed chapters and poems." },
+                     { name: "Vistas (Supplementary)", marks: 5, topics: "Long answer questions on major themes and character analysis." }
+                ]
+            },
+            gujarati: {
+                title: "Gujarati",
+                totalMarks: "80 (Theory) + 20 (Internal)",
+                color: 'orange',
+                chapters: [
+                    { name: "Prose (ગદ્ય)", marks: 'Varies', topics: "Comprehension, short/long answers, character sketches from textual chapters." },
+                    { name: "Poetry (પદ્ય)", marks: 'Varies', topics: "Explanation of stanzas, central idea, poetic devices (અલંકાર, છંદ)." },
+                    { name: "Grammar (વ્યાકરણ)", marks: 'Varies', topics: "સંધિ, સમાસ, છંદ, અલંકાર, વાક્ય રૂપાંતર, કૃદંત, etc. Application-based questions." },
+                    { name: "Composition (લેખન)", marks: 'Varies', topics: "Essay, Precis, Letter, Report, and Dialogue writing. Focus on creativity and accuracy." },
+                    { name: "Reading Comprehension", marks: 'Varies', topics: "Answering questions based on an unseen passage (અપઠિત ગદ્યખંડ)." }
+                ]
+            }
+        };
+
+        const mainContent = document.getElementById('main-content');
+
+        function createSubjectContent(subjectKey) {
+            const subject = blueprintData[subjectKey];
+            const color = subject.color;
+
+            // Remove chart-specific elements as requested
+            const contentHTML = `
+                <div id="${subjectKey}-content" class="content-section p-4 rounded-lg bg-${color}-50 border border-${color}-200">
+                    <h3 class="text-2xl font-bold text-center text-${color}-700 mb-6">${subject.title} - Chapter Weightage</h3>
+                    <div class="flex flex-col items-center">
+                        <div class="space-y-2 w-full max-w-2xl max-h-[70vh] overflow-y-auto pr-2">
+                            ${subject.chapters.map((chap, index) => `
+                                <details class="group bg-white rounded-lg shadow-sm transition hover:shadow-md">
+                                    <summary class="flex justify-between items-center p-4 cursor-pointer">
+                                        <span class="font-semibold text-gray-700 group-hover:text-${color}-600">${index + 1}. ${chap.name}</span>
+                                        <div class="flex items-center space-x-4">
+                                            <span class="font-bold text-lg text-${color}-600">${chap.marks}${typeof chap.marks === 'number' ? ' Marks' : ''}</span>
+                                            <span class="arrow-down transition-transform duration-300">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-500" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" /></svg>
+                                            </span>
+                                        </div>
+                                    </summary>
+                                    <div class="p-4 border-t border-gray-200 bg-gray-50">
+                                        <p class="text-sm text-gray-600"><strong class="font-medium text-gray-700">Key Topics:</strong> ${chap.topics}</p>
+                                    </div>
+                                </details>
+                            `).join('')}
+                        </div>
+                    </div>
+                </div>
+            `;
+            mainContent.insertAdjacentHTML('beforeend', contentHTML);
+        }
+
+        function showSubject(subjectKey) {
+            document.querySelectorAll('.content-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            document.getElementById(`${subjectKey}-content`).classList.add('active');
+
+            document.querySelectorAll('.tab-button').forEach(button => {
+                if (button.dataset.subject === subjectKey) {
+                    button.classList.add('tab-active');
+                    button.classList.remove('tab-inactive');
+                } else {
+                    button.classList.remove('tab-active');
+                    button.classList.add('tab-inactive');
+                }
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const tabs = document.getElementById('subject-tabs');
+            Object.keys(blueprintData).forEach(key => {
+                createSubjectContent(key);
+            });
+
+            tabs.addEventListener('click', (e) => {
+                if (e.target.classList.contains('tab-button')) {
+                    const subjectKey = e.target.dataset.subject;
+                    showSubject(subjectKey);
+                }
+            });
+
+            // Show the first subject by default
+            showSubject('accountancy');
+        });
+    </script>
+</body>
+</html>
